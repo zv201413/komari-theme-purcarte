@@ -107,7 +107,7 @@ export const NodeGrid = ({
             <div className="flex items-center gap-1">
               <CpuIcon className="size-4 text-blue-600 flex-shrink-0" />
               <span>
-                {node.cpu_cores} {t("node.cores")}
+                {Number.isInteger(node.cpu_cores) ? node.cpu_cores : parseFloat(node.cpu_cores.toFixed(2))} {t("node.cores")}
               </span>
             </div>
             <div className="flex items-center gap-1">
@@ -131,7 +131,7 @@ export const NodeGrid = ({
           {isShowValueUnderProgressBar && (
             <div className="flex text-xs items-center justify-between text-secondary-foreground">
               <span>
-                {node.cpu_cores} {t("node.cores")}
+                {Number.isInteger(node.cpu_cores) ? node.cpu_cores : parseFloat(node.cpu_cores.toFixed(2))} {t("node.cores")}
               </span>
             </div>
           )}
@@ -243,7 +243,7 @@ export const NodeGrid = ({
         )}
         <div className="border-t border-(--accent-4)/50 my-2"></div>
         <div className="flex justify-between text-xs">
-          <span>{t("node.network")}</span>
+          <span>{node.tcp_cc ? `${t("statsBar.networkSpeedShort")} (${node.tcp_cc})` : t("node.network")}</span>
           <div>
             <span>
               {t("node.uploadPrefix")}{" "}

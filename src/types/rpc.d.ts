@@ -5,6 +5,7 @@ export interface RpcClient {
   virtualization: string;
   arch: string;
   cpu_cores: number;
+  tcp_cc: string;
   os: string;
   kernel_version: string;
   gpu_name: string;

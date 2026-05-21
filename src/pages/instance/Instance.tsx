@@ -54,7 +54,7 @@ const Instance = memo(({ node }: InstanceProps) => {
         <InfoItem
           className="@md:col-span-2"
           label={t("instancePage.cpu")}
-          value={`${node.cpu_name} (x${node.cpu_cores})`}
+          value={`${node.cpu_name} (x${Number.isInteger(node.cpu_cores) ? node.cpu_cores : parseFloat(node.cpu_cores.toFixed(2))})`}
         />
         <InfoItem label={t("instancePage.architecture")} value={node.arch} />
         <InfoItem
@@ -66,6 +66,12 @@ const Instance = memo(({ node }: InstanceProps) => {
           value={node.gpu_name || t("node.notAvailable")}
         />
         <InfoItem label={t("instancePage.os")} value={node.os} />
+        {node.tcp_cc && (
+          <InfoItem
+            label={t("node.networkSpeed")}
+            value={node.tcp_cc}
+          />
+        )}
         <InfoItem
           label={t("instancePage.mem")}
           value={

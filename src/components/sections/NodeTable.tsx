@@ -143,7 +143,7 @@ const NodeTableRow = ({
           <CpuIcon className="inline-block size-5 flex-shrink-0 text-blue-600" />
           <div className="ml-1 w-full items-center justify-center">
             <div>
-              {node.cpu_cores} {t("node.cores")}
+              {Number.isInteger(node.cpu_cores) ? node.cpu_cores : parseFloat(node.cpu_cores.toFixed(2))} {t("node.cores")}
             </div>
             {enableListItemProgressBar ? (
               <div className="flex items-center gap-1">
@@ -232,6 +232,14 @@ const NodeTableRow = ({
           </div>
         </div>
         <div className="col-span-1 text-left">
+          <div className="text-secondary-foreground flex items-center gap-1.5">
+            <span>{t("node.network")}</span>
+            {node.tcp_cc && (
+              <span className="px-1.5 py-0.2 rounded text-[10px] bg-(--accent-3) text-(--accent-11) border border-(--accent-4) font-mono font-medium">
+                {node.tcp_cc}
+              </span>
+            )}
+          </div>
           <div>
             {t("node.uploadPrefix")}{" "}
             {stats ? formatBytes(stats.net_out, true) : t("node.notAvailable")}

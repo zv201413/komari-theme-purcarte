@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { StatsBar } from "@/components/sections/StatsBar";
+import { WorldMap } from "@/components/sections/WorldMap";
 import { NodeGridContainer } from "@/components/sections/NodeGrid";
 import { NodeCompactContainer } from "@/components/sections/NodeCompact";
 import { NodeTable } from "@/components/sections/NodeTable";
@@ -119,6 +120,10 @@ const HomePage: React.FC<HomePageProps> = ({
           ))}
         </div>
       )}
+
+      <div className="my-4">
+        <WorldMap nodes={filteredNodes} />
+      </div>
 
       <div className={cn("space-y-4", viewMode === "table" && "-mx-2 -mb-2")}>
         {filteredNodes.length > 0 ? (
