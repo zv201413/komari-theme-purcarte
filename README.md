@@ -6,6 +6,8 @@
 
 一款为 [Komari](https://github.com/komari-monitor/komari) 设计的磨砂玻璃风格主题。
 
+> 本仓库为 **zv201413 fork**，在原版基础上新增了 **TCP 拥塞控制算法显示** 等特性。
+
 </div>
 
 ---
@@ -17,7 +19,7 @@
 
 ### 安装与启用
 
-1.  前往 [Releases](https://github.com/Montia37/komari-theme-purcarte/releases) 页面下载最新的 `komari-theme-purcarte.zip` 文件。
+1.  前往 [Releases](https://github.com/zv201413/komari-theme-purcarte/releases) 页面下载最新的 `komari-theme-purcarte.zip` 文件。
 2.  进入 Komari 后台，上传 `zip` 压缩包并启用本主题。
 
 ### 配置背景图片
@@ -51,6 +53,10 @@
 ```
 
 </details>
+
+## ✨ Fork 新增特性
+
+- **TCP 拥塞控制算法显示**：网格、表格、紧凑视图和详情页中，网络速度行显示当前 TCP 拥塞算法（如 `bb r`、`cubic`），需配合 [zv201413/komari_new](https://github.com/zv201413/komari_new) 服务端使用。
 
 ## ⚙️ 主题配置
 
@@ -327,7 +333,7 @@
 1.  **克隆仓库**
 
     ```bash
-    git clone https://github.com/Montia37/komari-theme-purcarte.git
+    git clone https://github.com/zv201413/komari-theme-purcarte.git
     cd komari-theme-purcarte
     ```
 
