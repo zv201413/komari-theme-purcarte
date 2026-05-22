@@ -33,6 +33,27 @@ const getFlagEmoji = (countryCode: string): string => {
   }
 };
 
+// Helper to convert flag emoji back to 2-letter ISO country code
+const getCountryCodeFromEmoji = (emoji: string): string | null => {
+  const chars = Array.from(emoji);
+  if (chars.length !== 2) return null;
+  
+  const codePoint1 = chars[0].codePointAt(0)!;
+  const codePoint2 = chars[1].codePointAt(0)!;
+  
+  const REGIONAL_INDICATOR_START = 0x1f1e6;
+  const ASCII_ALPHA_START = 0x41;
+  
+  if (
+    codePoint1 >= REGIONAL_INDICATOR_START && codePoint1 <= 0x1f1ff &&
+    codePoint2 >= REGIONAL_INDICATOR_START && codePoint2 <= 0x1f1ff
+  ) {
+    return String.fromCodePoint(codePoint1 - REGIONAL_INDICATOR_START + ASCII_ALPHA_START) + 
+           String.fromCodePoint(codePoint2 - REGIONAL_INDICATOR_START + ASCII_ALPHA_START);
+  }
+  return null;
+};
+
 export const WorldMap = ({ nodes }: WorldMapProps) => {
   const { t } = useLocale();
   const [svgContent, setSvgContent] = useState<string>("");
@@ -71,7 +92,16 @@ export const WorldMap = ({ nodes }: WorldMapProps) => {
     const counts: Record<string, number> = {};
     nodes.forEach((node) => {
       if (node.stats?.online && node.region) {
-        const reg = node.region.toLowerCase();
+        let isoCode = node.region;
+        const fromEmoji = getCountryCodeFromEmoji(node.region);
+        if (fromEmoji) {
+          isoCode = fromEmoji;
+        } else if (node.region.length > 2 && node.region.includes(" ")) {
+          // Fallback if backend was modified to store "emoji ISO"
+          const parts = node.region.trim().split(" ");
+          isoCode = parts[parts.length - 1];
+        }
+        const reg = isoCode.toLowerCase();
         counts[reg] = (counts[reg] || 0) + 1;
       }
     });

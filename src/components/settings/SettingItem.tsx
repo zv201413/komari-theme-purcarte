@@ -26,6 +26,7 @@ const SettingItem = ({
     editingConfig[item.key as keyof ConfigOptions] ?? defaultValue;
   const isModified = currentValue !== defaultValue;
   const [localValue, setLocalValue] = useState(currentValue);
+  const [forceCustom, setForceCustom] = useState(false);
 
   useEffect(() => {
     setLocalValue(currentValue);
@@ -91,6 +92,48 @@ const SettingItem = ({
             </SelectContent>
           </Select>
         );
+      case "select-with-custom": {
+        const optionsList = item.options.split(",");
+        const isCustomValue = forceCustom || !optionsList.includes(localValue as string);
+        return (
+          <div className="flex flex-col gap-2">
+            <Select
+              value={isCustomValue ? "custom" : (localValue as string)}
+              onValueChange={(value) => {
+                if (value === "custom") {
+                  // Enable custom mode but keep the current localValue intact
+                  setForceCustom(true);
+                } else {
+                  setForceCustom(false);
+                  setLocalValue(value);
+                  onConfigChange(item.key, value);
+                }
+              }}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select..." />
+              </SelectTrigger>
+              <SelectContent>
+                {optionsList.map((option: string) => (
+                  <SelectItem key={option} value={option}>
+                    {option === "" ? "None / Empty" : option}
+                  </SelectItem>
+                ))}
+                <SelectItem value="custom">自定义 URL (Custom)</SelectItem>
+              </SelectContent>
+            </Select>
+            {isCustomValue && (
+              <Input
+                type="text"
+                placeholder="在此输入自定义 URL..."
+                className="theme-card-style mt-1"
+                value={localValue as string}
+                onChange={(e) => setLocalValue(e.target.value)}
+                onBlur={handleBlur}
+              />
+            )}
+          </div>
+        );
+      }
       default:
         return null;
     }
@@ -100,7 +143,7 @@ const SettingItem = ({
     return <h3 className="text-lg font-semibold mt-4 mb-2">{item.name}</h3>;
   }
 
-  if (item.type === "switch" || item.type === "select") {
+  if (item.type === "switch" || item.type === "select" || item.type === "select-with-custom") {
     return (
       <div className="mb-4 flex items-center justify-between">
         <div>

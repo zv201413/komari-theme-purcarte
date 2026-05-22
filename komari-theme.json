@@ -34,14 +34,16 @@
             {
                 "key": "backgroundImage",
                 "name": "桌面端背景图片链接",
-                "type": "string",
+                "type": "select-with-custom",
+                "options": "/assets/Moonlit-Scenery.webp",
                 "default": "/assets/Moonlit-Scenery.webp",
                 "help": "目前支持单张背景图片或图片api，使用“|”分隔亮色模式和暗色模式，填写单个则同时用于亮暗模式，请自行测试（eg: https://test.com/1.png）"
             },
             {
                 "key": "backgroundImageMobile",
                 "name": "移动端背景图片链接",
-                "type": "string",
+                "type": "select-with-custom",
+                "options": "",
                 "default": "",
                 "help": "移动端背景图片链接，与桌面端一样区分亮暗模式，留空则使用桌面端背景"
             },
@@ -55,14 +57,16 @@
             {
                 "key": "videoBackgroundUrl",
                 "name": "桌面端视频背景链接",
-                "type": "string",
+                "type": "select-with-custom",
+                "options": "/assets/LanternRivers_1080p15fps2Mbps3s.mp4",
                 "default": "/assets/LanternRivers_1080p15fps2Mbps3s.mp4",
                 "help": "视频背景链接（eg: https://test.com/1.mp4），使用“|”分隔亮色模式和暗色模式，填写单个则同时用于亮暗模式，建议使用无声视频，且视频文件较大时可能会影响加载速度"
             },
             {
                 "key": "videoBackgroundUrlMobile",
                 "name": "移动端视频背景链接",
-                "type": "string",
+                "type": "select-with-custom",
+                "options": "",
                 "default": "",
                 "help": "移动端视频背景链接，与桌面端一样区分亮暗模式，留空则使用桌面端视频"
             },
@@ -172,7 +176,8 @@
             {
                 "key": "logoUrl",
                 "name": "Logo 图片链接",
-                "type": "string",
+                "type": "select-with-custom",
+                "options": "/assets/logo.png,/assets/pwa-icon.png",
                 "required": false,
                 "default": "/assets/logo.png",
                 "help": "Logo 图片链接（eg: https://test.com/logo.png）"
