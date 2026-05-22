@@ -271,6 +271,7 @@ export const WorldMap = ({ nodes }: WorldMapProps) => {
           <style>{mapStyle}</style>
           {svgContent ? (
             <div
+              id="world-map"
               ref={mapRef}
               className="w-full flex justify-center items-center"
               dangerouslySetInnerHTML={{ __html: svgContent }}

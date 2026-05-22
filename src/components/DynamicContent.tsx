@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useMemo, useEffect } from "react";
+import { type ReactNode, useCallback, useMemo, useEffect, useState } from "react";
 import { useAppConfig } from "@/config/hooks";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useTheme } from "@/hooks/useTheme";
@@ -7,6 +7,14 @@ export function DynamicContent({ children }: { children: ReactNode }) {
   const config = useAppConfig();
   const isMobile = useIsMobile();
   const { appearance } = useTheme();
+  const [isPortrait, setIsPortrait] = useState(false);
+
+  useEffect(() => {
+    const checkPortrait = () => setIsPortrait(window.innerHeight > window.innerWidth);
+    checkPortrait();
+    window.addEventListener("resize", checkPortrait);
+    return () => window.removeEventListener("resize", checkPortrait);
+  }, []);
 
   const getUrlFromConfig = useCallback(
     (urls: string) => {
@@ -23,10 +31,10 @@ export function DynamicContent({ children }: { children: ReactNode }) {
   const imageUrl = useMemo(() => {
     if (!config) return "";
     const { backgroundImage, backgroundImageMobile } = config;
-    return isMobile && backgroundImageMobile
+    return (isMobile || isPortrait) && backgroundImageMobile
       ? getUrlFromConfig(backgroundImageMobile)
       : getUrlFromConfig(backgroundImage);
-  }, [config, isMobile, getUrlFromConfig]);
+  }, [config, isMobile, isPortrait, getUrlFromConfig]);
 
   const videoUrl = useMemo(() => {
     if (!config || !config.enableVideoBackground) return "";
