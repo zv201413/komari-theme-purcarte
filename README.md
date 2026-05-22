@@ -108,6 +108,10 @@
   - **类型:** `string`
   - **默认值:** `/assets/LanternRivers_1080p15fps2Mbps3s.mp4`
   - **说明:** 视频背景链接（eg: `https://test.com/1.mp4`），使用“|”分隔亮色模式和暗色模式，填写单个则同时用于亮暗模式，建议使用无声视频，且视频文件较大时可能会影响加载速度
+  - **自定义图片（压缩版）** (`customImage`)
+    - **类型:** `string`
+    - **默认值:** `/jpg/webp/pexels-david.jpg`
+    - **说明:** 可使用压缩后的 WebP 图片，路径相对于 `public/`，如 `/jpg/webp/pexels-toni-11225068.webp`。在设置面板中选择 “自定义 URL”，输入此路径即可。若想将其加入下拉预设，请在 `komari-theme.json` 的对应字段 `options` 中添加路径。
 
 - **移动端视频背景链接** (`videoBackgroundUrlMobile`)
   - **类型:** `string`
